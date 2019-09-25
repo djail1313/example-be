@@ -1,0 +1,25 @@
+{
+    "name": "Bahaso/products",
+    "description": "",
+    "authors": [
+        {
+            "name": "Developer Bahaso",
+            "email": "info@bahaso.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Islami\\Products\\Providers\\ProductsServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Islami\\Products\\": ""
+        }
+    }
+}
