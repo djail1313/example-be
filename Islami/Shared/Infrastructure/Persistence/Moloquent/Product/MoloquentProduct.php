@@ -10,4 +10,6 @@ class MoloquentProduct extends \Moloquent
     protected $connection = "mongodb";
     protected $collection = "products";
 
+    protected $dates = ['published_at'];
+
 }

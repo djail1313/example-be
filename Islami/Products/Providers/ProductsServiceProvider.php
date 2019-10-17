@@ -4,8 +4,12 @@ namespace Islami\Products\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Islami\Products\Application\Queries\Product\Specification\ProductFilterSpecification;
 use Islami\Products\Domain\Model\ProductRepository;
+use Islami\Products\Application\Queries\Product\ProductRepository as QueryProductRepository;
 use Islami\Products\Infrastructure\Domain\Model\Product\MoloquentProductRepository;
+use Islami\Products\Infrastructure\Queries\Product\MoloquentProductRepository as QueryMoloquentProductRepository;
+use Islami\Products\Infrastructure\Queries\Product\Specification\MoloquentProductFilterSpecification;
 
 class ProductsServiceProvider extends ServiceProvider
 {
@@ -109,6 +113,11 @@ class ProductsServiceProvider extends ServiceProvider
 
     public function registerDependencyInjections()
     {
+        // Domain
         $this->app->bind(ProductRepository::class, MoloquentProductRepository::class);
+
+        // Query
+        $this->app->bind(QueryProductRepository::class, QueryMoloquentProductRepository::class);
+        $this->app->bind(ProductFilterSpecification::class, MoloquentProductFilterSpecification::class);
     }
 }

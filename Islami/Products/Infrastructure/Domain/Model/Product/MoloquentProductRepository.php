@@ -35,6 +35,8 @@ class MoloquentProductRepository implements ProductRepository
         $moloquent_product->stock = $product->getStock()->getValue();
         $moloquent_product->price = $product->getPrice()->getPrice();
         $moloquent_product->currency = $product->getPrice()->getCurrency()->getValue();
+        $moloquent_product->published_at = $product->getPublishedAt();
+
         return $moloquent_product->save();
     }
 
@@ -58,7 +60,8 @@ class MoloquentProductRepository implements ProductRepository
                 $moloquentProduct->price,
                 new Currency($moloquentProduct->currency)
             ),
-            new Stock($moloquentProduct->stock)
+            new Stock($moloquentProduct->stock),
+            $moloquentProduct->published_at
         );
     }
 }

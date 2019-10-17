@@ -4,6 +4,7 @@
 namespace Islami\Products\Domain\Model;
 
 
+use Carbon\Carbon;
 use Islami\Products\Shared\Domain\Model\Product\ProductId;
 use Islami\Shared\Domain\Aggregate\AggregateRoot;
 
@@ -30,13 +31,18 @@ class Product extends AggregateRoot
      * @var Stock
      */
     private $stock;
+    /**
+     * @var Carbon
+     */
+    private $published_at;
 
     public function __construct(
         ProductId $id,
         Name $name,
         Description $description,
         Price $price,
-        Stock $stock
+        Stock $stock,
+        Carbon $published_at
     )
     {
         $this->id = $id;
@@ -44,6 +50,7 @@ class Product extends AggregateRoot
         $this->description = $description;
         $this->price = $price;
         $this->stock = $stock;
+        $this->published_at = $published_at;
     }
 
     /**
@@ -89,6 +96,14 @@ class Product extends AggregateRoot
     public function reduceStock(int $value)
     {
         $this->stock = $this->stock->reduce($value);
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getPublishedAt(): Carbon
+    {
+        return $this->published_at;
     }
 
 }

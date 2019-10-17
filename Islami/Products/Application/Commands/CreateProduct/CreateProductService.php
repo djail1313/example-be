@@ -34,10 +34,11 @@ class CreateProductService
             new Name($createProduct->getName()),
             new Description($createProduct->getDescription()),
             new Price($createProduct->getPrice(), new Currency($createProduct->getCurrency())),
-            new Stock($createProduct->getStock())
+            new Stock($createProduct->getStock()),
+            $createProduct->getPublishedAt()
         );
 
-        $this->productRepository->save($product);
+        return $this->productRepository->save($product);
 
     }
 

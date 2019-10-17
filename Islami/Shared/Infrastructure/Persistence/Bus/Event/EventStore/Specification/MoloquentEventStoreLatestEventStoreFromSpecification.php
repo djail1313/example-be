@@ -23,8 +23,8 @@ class MoloquentEventStoreLatestEventStoreFromSpecification
         $this->from = $from;
     }
 
-    public function getQuery()
+    public function getQuery($query)
     {
-        return $this->query->where('occured_on', '>=', $this->from);
+        return $query->where('occured_on', '>=', $this->from);
     }
 }

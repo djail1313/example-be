@@ -15,6 +15,8 @@ use Islami\Shared\Infrastructure\Persistence\Bus\Event\EventStore\MoloquentEvent
 use Islami\Shared\Infrastructure\Persistence\Moloquent\MoloquentTransactionManager;
 use Islami\Shared\Infrastructure\Persistence\Moloquent\Mongodb\Connection;
 use Islami\Shared\Infrastructure\Persistence\Moloquent\Mongodb\Eloquent\Model;
+use Islami\Shared\Infrastructure\Persistence\Moloquent\Specification\MoloquentSortSpecification;
+use Islami\Shared\Infrastructure\Persistence\Repository\Specification\SortSpecification;
 use Islami\Shared\Infrastructure\Persistence\TransactionManager;
 use Jenssegers\Mongodb\Queue\MongoConnector;
 
@@ -23,6 +25,7 @@ class SharedServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->registerTranslations();
         $this->registerBusMiddleware();
         $this->registerDependencyInjection();
         $this->registerCustomMoloquent();
@@ -51,6 +54,21 @@ class SharedServiceProvider extends ServiceProvider
 
     }
     /**
+     * Register translations.
+     *
+     * @return void
+     */
+    public function registerTranslations()
+    {
+        $langPath = resource_path('lang/modules/shared');
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, 'shared');
+        } else {
+            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'shared');
+        }
+    }
+    /**
      * Register config.
      *
      * @return void
@@ -76,6 +94,7 @@ class SharedServiceProvider extends ServiceProvider
         $this->app->bind(DomainSerializer::class, JsonDomainSerializer::class);
         $this->app->bind(PayloadSerializer::class, JsonPayloadSerializer::class);
         $this->app->bind(EventStoreRepository::class, MoloquentEventStoreRepository::class);
+        $this->app->bind(SortSpecification::class, MoloquentSortSpecification::class);
     }
 
     private function registerCustomMoloquent()

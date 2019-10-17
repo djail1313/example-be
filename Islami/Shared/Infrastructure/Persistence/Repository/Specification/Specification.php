@@ -7,6 +7,10 @@ namespace Islami\Shared\Infrastructure\Persistence\Repository\Specification;
 interface Specification
 {
 
-    public function getQuery();
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function getQuery($query);
 
 }
