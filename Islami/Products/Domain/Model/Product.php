@@ -93,6 +93,11 @@ class Product extends AggregateRoot
         return $this->stock;
     }
 
+    public function addStock(int $stock_number): void
+    {
+        // do something
+    }
+
     public function reduceStock(int $value)
     {
         $this->stock = $this->stock->reduce($value);
